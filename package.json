@@ -1,0 +1,29 @@
+{
+  "name": "bdsd-io",
+  "version": "1.0.0",
+  "description": "Socket.io support for Bobaos Datapoint Sdk",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shabunin/bdsd-io.git"
+  },
+  "keywords": [
+    "bobaos",
+    "baos",
+    "knx",
+    "socketio"
+  ],
+  "author": "Vladimir Shabunin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shabunin/bdsd-io/issues"
+  },
+  "homepage": "https://github.com/shabunin/bdsd-io#readme",
+  "dependencies": {
+    "bdsd.client": "^1.0.2",
+    "socket.io": "^2.0.4"
+  }
+}
