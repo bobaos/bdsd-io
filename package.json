@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/shabunin/bdsd-io#readme",
   "dependencies": {
-    "bdsd.client": "^1.0.2",
+    "bdsd.client": "^1.0.3",
     "socket.io": "^2.0.4"
   }
 }
