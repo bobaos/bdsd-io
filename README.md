@@ -46,3 +46,49 @@ $ systemctl --user start bdsd-io.service
 ```
 
 # Usage
+
+Now you may connect to bdsd-io service by using [socket.io-client](https://github.com/socketio/socket.io-client) library.
+
+Node.JS client:
+
+```js
+const socket = require('socket.io-client')('http://<RPi ip address>:49199');
+socket.on('connect', _ => {
+  console.log('Connected to bobaos server!');
+  socket.emit('get value', 1, function(err, payload) {
+    if (err) {
+      throw new Error(err)
+    }
+    console.log('Got datapoint 1 value: ', payload);
+  });
+  socket.on('value', function(payload){
+    console.log('got broadcasted value:', payload);
+  });
+})
+```
+
+Browser:
+
+```html
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io('http://<RPi ip address>:49199');
+  socket.on('connect', function(){
+    console.log('Connected to bobaos server!');
+    io.emit('get value', 1, function(err, payload) {
+      if (err) {
+        throw new Error(err)
+      }
+      console.log('Got datapoint 1 value: ', payload);
+    })
+  });
+  socket.on('value', function(payload){
+    console.log('got broadcasted value:', payload);
+  });
+</script>
+```
+
+You may also check example folder for nodejs and [CommandFusion](https://commandfusion.com) example.
+
+By default, socket.io binds to port 49199. If you want to use other you may change it in index.js file.
+
