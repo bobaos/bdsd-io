@@ -6,7 +6,7 @@ const io = require('socket.io')(PORT);
 const bdsd = require('bdsd.client')();
 
 io.on('connection', socket => {
-  console.log('user connected');
+  console.log('client connected');
   // register socket.io events
   socket.on('get datapoints', callback => {
     bdsd
