@@ -91,3 +91,180 @@ You may also check example folder for nodejs and [CommandFusion](https://command
 
 By default, socket.io binds to port 49199. If you want to use other you may change it in index.js file.
 
+# Protocol
+
+In order to communicate through socket.io you should use io.emit function.
+
+```
+io.emit(<method>, [params], callback);
+```
+
+## Methods
+
+**1. get datapoonts**
+
+Get description for all configured datapoints.
+
+Request: 
+
+```js
+socket.emit('get datapoints', function(err, res) {
+  if (err) {
+    throw err;
+  }
+  console.log(res);
+});
+```
+
+Response:
+
+```
+[ { id: 1,
+    length: 2,
+    flags:
+     { priority: 'low',
+       communication: true,
+       read: true,
+       write: true,
+       readOnInit: false,
+       transmit: true,
+       update: false },
+    dpt: 'dpt9' },
+  { id: 2,
+    length: 1,
+    flags:
+     { priority: 'low',
+       communication: true,
+       read: false,
+       write: true,
+       readOnInit: false,
+       transmit: true,
+       update: false },
+    dpt: 'dpt5' }
+    ]
+```
+
+**2. get description**
+
+Get description for specified datapoint.
+
+Requires datapoint **id** as parameter.
+
+Request:
+
+```js
+socket.emit('get description', 1, function(err, res) {
+  if (err) {
+    throw err;
+  }
+  console.log(res);
+});
+```
+
+Response:
+
+```
+{ id: 1,
+  value:
+   { id: 1,
+     dpt: 'dpt9',
+     flags:
+      { priority: 'low',
+        communication: true,
+        read: true,
+        write: true,
+        readOnInit: false,
+        transmit: true,
+        update: false },
+     length: 2 } }
+```
+
+**3. get value**
+
+Get value for specified datapoint.
+
+Requires datapoint **id** as parameter.
+
+Request:
+
+```js
+socket.emit('get value', 1, function(err, res) {
+  if (err) {
+    throw err;
+  }
+  console.log(res);
+});
+```
+
+Response:
+
+```
+{ id: 1, value: 19.9 }
+```
+
+**4. set value**
+
+Set datapoint value and send it to KNX bus.
+
+Requires datapoint **id** as parameter.
+
+Requires datapoint **value** as parameter
+
+Request:
+
+```js
+socket.emit('set value', 1, 20, function(err, res) {
+  if (err) {
+    throw err;
+  }
+  console.log(res);
+});
+```
+
+Response:
+
+```
+{ id: 1 }
+```
+
+**5. read value**
+
+Send read request to KNX bys. 
+
+Requires datapoint **id** as parameter.
+
+Request:
+
+```js
+socket.emit('read value', 1, function(err, res) {
+  if (err) {
+    throw err;
+  }
+  console.log(res);
+});
+```
+
+Response:
+
+```
+{ id: 1}
+```
+
+## Incoming events
+
+**1. Value indication**
+
+When datapoint changed on bus, e.g. temperature value were sent on change, you will receive 'value' event. So, you should register this event:
+
+```js
+socket.on('value', function(payload) {
+  console.log('broadcasted value', payload);
+})
+```
+
+When running:
+
+```
+broadcasted value { id: 1, value: 19.9 }
+broadcasted value { id: 1, value: 20.2 }
+```
