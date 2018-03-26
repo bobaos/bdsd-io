@@ -93,10 +93,10 @@ By default, socket.io binds to port 49199. If you want to use other you may chan
 
 # Protocol
 
-In order to communicate through socket.io you should use io.emit function.
+In order to communicate through socket.io you should use socket.emit function.
 
 ```
-io.emit(<method>, [params], callback);
+socket.emit(<method>, [params], callback);
 ```
 
 ## Methods
