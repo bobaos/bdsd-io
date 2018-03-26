@@ -10,6 +10,9 @@
     "type": "git",
     "url": "git+https://github.com/shabunin/bdsd-io.git"
   },
+  "bin": {
+	  "bdsd-io": "./bin/bdsd-io.js"
+  },
   "keywords": [
     "bobaos",
     "baos",

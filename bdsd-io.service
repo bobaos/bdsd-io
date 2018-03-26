@@ -2,8 +2,7 @@
 Description=Socket.IO support for Bobaos Datapoint Sdk Daemon
 
 [Service]
-ExecStart=/usr/bin/env node %h/bdsd-io/index.js
-WorkingDirectory=%h/bdsd-io
+ExecStart=/usr/bin/env bdsd-io
 
 [Install]
 WantedBy=default.target

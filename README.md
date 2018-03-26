@@ -6,30 +6,29 @@ Before installing this module, make sure that [bdsd.sock](https://github.com/sha
 
 Is it configured and systemd service is running then proceed to following steps:
 
-**1. Clone this repository**
+**1. Install bdsd-io package by npm**
 
 ```bash
-$ cd ~/
-$ git clone https://github.com/shabunin/bdsd-io
+$ sudo npm install -g bdsd-io --unsafe-perm
 ```
 
-**2. Install dependencies**
+**4. Create service file in user systemd folder **
 
 ```bash
-$ cd ~/bdsd-io
-$ npm install
+$ touch ~/.config/systemd/user/bdsd-io.service
 ```
 
-**3. Make sure that it runs correctly**
+Then add following to this file using your favourite text editor:
 
-```bash
-$ node index.js
 ```
+[Unit]
+Description=Socket.IO support for Bobaos Datapoint Sdk Daemon
 
-**4. Copy bdsd-io.service file**
+[Service]
+ExecStart=/usr/bin/env bdsd-io
 
-```bash
-$ cp ~/bdsd-io/bdsd-io.service ~/.config/systemd/user
+[Install]
+WantedBy=default.target
 ```
 
 **5. Enable service**
