@@ -140,8 +140,7 @@ Response:
        readOnInit: false,
        transmit: true,
        update: false },
-    dpt: 'dpt5' }
-    ]
+    dpt: 'dpt5' } ]
 ```
 
 **2. get description**
