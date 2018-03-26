@@ -12,7 +12,7 @@ Is it configured and systemd service is running then proceed to following steps:
 $ sudo npm install -g bdsd-io --unsafe-perm
 ```
 
-**4. Create service file in user systemd folder **
+**4. Create service file in user systemd folder**
 
 ```bash
 $ touch ~/.config/systemd/user/bdsd-io.service
