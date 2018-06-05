@@ -11,7 +11,7 @@
     "url": "git+https://github.com/shabunin/bdsd-io.git"
   },
   "bin": {
-	  "bdsd-io": "./bin/bdsd-io.js"
+    "bdsd-io": "./bin/bdsd-io.js"
   },
   "keywords": [
     "bobaos",
@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/shabunin/bdsd-io#readme",
   "dependencies": {
-    "bdsd.client": "^1.0.3",
-    "socket.io": "^2.0.4"
+    "bdsd.client": "^1.0.4",
+    "socket.io": "^2.1.1"
   }
 }
