@@ -13,6 +13,8 @@ const BdsdIO = function (params) {
   }
   io = SocketIO(port);
   bdsd = BdsdClient(sockFile);
+  console.log(`Using following UDS path: ${sockFile}`);
+  console.log(`Socket.IO listening on port ${port}`);
   io.on('connection', socket => {
     console.log('client connected');
     // register socket.io events
@@ -71,6 +73,9 @@ const BdsdIO = function (params) {
   // broadcast value indication
   bdsd.on('value', data => {
     io.emit('value', data);
+  });
+  bdsd.on('error', e => {
+    console.log(`Error while connecting to ${sockFile}. Reconnecting`)
   });
   return io;
 };
