@@ -15,6 +15,7 @@ const BdsdIO = function (params) {
   bdsd = BdsdClient(sockFile);
   console.log(`Using following UDS path: ${sockFile}`);
   console.log(`Socket.IO listening on port ${port}`);
+  
   io.on('connection', socket => {
     console.log('client connected');
     // register socket.io events
@@ -26,7 +27,7 @@ const BdsdIO = function (params) {
         })
         .catch(e => {
           callback(e);
-        })
+        });
     });
     socket.on('get description', (id, callback) => {
       bdsd
@@ -46,7 +47,7 @@ const BdsdIO = function (params) {
         })
         .catch(e => {
           callback(e);
-        })
+        });
     });
     socket.on('set value', (id, value, callback) => {
       bdsd
@@ -56,7 +57,7 @@ const BdsdIO = function (params) {
         })
         .catch(e => {
           callback(e);
-        })
+        });
     });
     socket.on('read value', (id, callback) => {
       bdsd
@@ -68,12 +69,43 @@ const BdsdIO = function (params) {
           callback(e);
         })
     });
+    socket.on('get stored value', (id, callback) => {
+      bdsd
+        .getStoredValue(id)
+        .then(payload => {
+          callback(null, payload);
+        })
+        .catch(e => {
+          callback(e);
+        });
+    });
+    socket.on('read values', (ids, callback) => {
+      bdsd
+        .readValues(ids)
+        .then(payload => {
+          callback(null, payload);
+        })
+        .catch(e => {
+          callback(e);
+        });
+    });
+    socket.on('set values', (values, callback) => {
+      bdsd
+        .setValues(values)
+        .then(payload => {
+          callback(null, payload);
+        })
+        .catch(e => {
+          callback(e);
+        });
+    });
   });
 
   // broadcast value indication
   bdsd.on('value', data => {
     io.emit('value', data);
   });
+
   bdsd.on('error', e => {
     console.log(`Error while connecting to ${sockFile}. Reconnecting`)
   });
