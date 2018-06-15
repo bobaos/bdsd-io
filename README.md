@@ -12,7 +12,16 @@ Is it configured and systemd service is running then proceed to following steps:
 $ sudo npm install -g bdsd-io --unsafe-perm
 ```
 
-**4. Create service file in user systemd folder**
+```bash
+$ bdsd-io --help
+Options:
+  --help          Show help                                            [boolean]
+  --version       Show version number                                  [boolean]
+  --sockfile, -s  path to socket file.     [default: "/run/user/1000/bdsd.sock"]
+  --port, -p      port that socket.io listens to                [default: 49199]
+```
+
+**2. Create service file in user systemd folder**
 
 ```bash
 $ touch ~/.config/systemd/user/bdsd-io.service
@@ -31,14 +40,14 @@ ExecStart=/usr/bin/env bdsd-io
 WantedBy=default.target
 ```
 
-**5. Enable service**
+**3. Enable service**
 
 ```bash
 $ systemctl --user daemon-reload
 $ systemctl --user enable bdsd-io.service
 ```
 
-**6. Start service**
+**4. Start service**
 
 ```bash
 $ systemctl --user start bdsd-io.service
@@ -247,6 +256,75 @@ Response:
 
 ```
 { id: 1}
+```
+
+**6. get stored value**
+
+Send read request to KNX bys.
+
+Requires datapoint **id** as parameter.
+
+Request:
+
+```js
+socket.emit('get stored value', 1, function(err, res) {
+  if (err) {
+    throw err;
+  }
+  console.log(res);
+});
+```
+
+Response:
+
+```
+{ id: 1, value: 1, raw: {type: 'Buffer', data: [1]}}
+```
+
+**7. read values**
+
+Send read request for multiple values
+
+Requires array of datapoints.
+
+Request:
+
+```js
+socket.emit('read value', [1], function(err, res) {
+  if (err) {
+    throw err;
+  }
+  console.log(res);
+});
+```
+
+Response:
+
+```
+{ id: 1}
+```
+
+**8. set values**
+
+Send read request to KNX bys.
+
+Requires datapoint values as an array: `[{id: 1, value: 1}, {id: 2, value: 2}]`
+
+Request:
+
+```js
+socket.emit('set values', [{id: 1, value: 1}, {id: 2, value: 2}], function(err, res) {
+  if (err) {
+    throw err;
+  }
+  console.log(res);
+});
+```
+
+Response:
+
+```
+[{id: 1, value: 1}, {id: 2, value: 2}]
 ```
 
 ## Incoming events
