@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/shabunin/bdsd-io#readme",
   "dependencies": {
-    "bdsd.client": "^2.0.9",
+    "bdsd.client": "^2.0.11",
     "socket.io": "^2.1.1",
     "yargs": "^11.1.0"
   }
